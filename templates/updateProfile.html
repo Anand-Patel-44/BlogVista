@@ -1,0 +1,105 @@
+{{ template "base.html" }}
+
+<body>
+    <h2 style="text-align: center;margin: 3rem;">Edit your Profile</h2>
+    <form>
+        <div style="display: none;">
+            <input type="text" name="username2" value="{{ .userName }}">
+        </div>
+        UserName<span style="color: red;">*</span>
+        <input type="text" name="username" placeholder="UserName"  id="user" maxlength="30" value="{{ .userName }}">
+        <br>
+        Bio<span style="color: red;">*</span>
+        <input type="text" name="bio" id="textarea"  maxlength="125" value="{{ .bio }}">
+        <span id="count">125 characters remaining</span>
+        <br>
+        Profession<span style="color: red;">*</span>
+        <input type="text" name="profession" id="profession" placeholder="Your Job"  value="{{ .profession }}">
+        <br>
+        what primary color would you like<span style="color: red;">*</span>
+        <input type="color" name="color" id="color" placeholder="color" value="{{ .color }}">
+        <input type="submit" value="Update Profile" hx-post="/updatedProfile"
+            hx-confirm="Are you sure you want to update your profile?" hx-target="body" hx-swap="innerHTML" id="submit">
+    </form>
+</body>
+
+<script>
+    let text = document.getElementById("textarea")
+    let count = document.getElementById("count")
+    let btn = document.getElementById("submit")
+    let user = document.getElementById("user")
+    let prof = document.getElementById("profession")
+    let color = document.getElementById("color")
+    let max = 125
+    user.addEventListener("input", () => {
+        if(user.value.length == 0){
+            btn.disabled = true
+        }else{
+            btn.disabled = false
+        }
+    })
+    prof.addEventListener("input", () => {
+        if(prof.value.length == 0){
+            btn.disabled = true
+        }else{
+            btn.disabled = false
+        }
+    })
+    text.addEventListener("input", () => {
+        if(text.value.length == 0){
+            btn.disabled = true
+        }else{
+            btn.disabled = false
+        }
+        const remaining = max - text.value.length
+        count.textContent = `${remaining} characters remaining`
+    })
+    
+</script>
+<style>
+     #count {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        #user,
+        #textarea,
+        #profession,
+        #color {
+            width: 93%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        #color {
+            margin-bottom: 5px;
+        }
+        
+        #submit {
+            width: 93%;
+            padding: 10px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: #00ff008d;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #submit:hover {
+            background-color: #00ff004f;
+        }
+        
+        form {
+            margin-top: 5rem;
+            width: 400px;
+            margin: 0 auto;
+        }
+</style>

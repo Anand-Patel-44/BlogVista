@@ -1,0 +1,24 @@
+{{ template "base.html" }}
+
+<body>
+    {{ range .arr }}
+    <div hx-get="/blog/{{ .Blogid }}" hx-target="body" class="div" style="border: 2px solid white;border-radius: 5px;margin: 10px;">
+    <div id="title" class="div"> {{ .Title }}</div>
+    <a href="/profile/{{ .Username }}" class="div">{{ .Username }}</a>
+    <div id="text" class="div"> {{ .Blogtext }}</div>
+    </div>
+    {{ end }}
+</body>
+
+<style>
+    #title{
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    #text{
+        font-size: 1.1rem;
+    }
+    .div{
+        margin: 10px;
+    }
+</style>

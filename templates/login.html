@@ -1,0 +1,116 @@
+ {{ template "base.html" }}
+
+<body>
+    <div id="intro">Log into an existing user</div>
+    <div class="form-container">
+        <form action="/login" method="post">
+            <div>
+                <div class="label">User Name <span style="color:#FF0000;">*</span></div>
+                <input type="text" name="userName" placeholder="Username" required id="user">
+                <div class="label">Password <span style="color:#FF0000;">*</span></div>
+                <input type="password" name="password" placeholder="Password" required id="password">
+                <span id="passBtn" onclick="toggle()">Show Password</span>
+                <div style="width: 100%;text-align: center;">
+                <input type="submit" value="Log in" id="submit" hx-post="/login">
+            </div>
+            </div>
+        </form>
+    </div>
+</body>
+<style>
+    form{
+        margin-top: 5rem;
+    }
+    #submit{
+        font-weight: 600;
+        margin: 10px;
+    }
+    #passBtn{
+        cursor: pointer;
+    }
+    #intro{
+        font-size: 3rem;
+        text-align: center;
+        margin: 3rem;
+    }
+    /* Basic styles */
+.form-container {
+    width: 400px; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the form horizontally */
+}
+
+/* Label styles */
+.label {
+    font-size: 1.2em;
+    color: #fff; /* Change the label color */
+    margin-bottom: 5px;
+}
+
+/* Input styles */
+input[type="text"],
+input[type="password"] {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f8f8f8; /* Background color */
+    color: #333; /* Text color */
+}
+input[type="password"]{
+    margin-bottom: 5px;
+}
+/* Submit button styles */
+input[type="submit"] {
+    width: 93%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00ff008d; /* Button background color */
+    color: #fff; /* Button text color */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+input[type="submit"]:hover {
+    background-color: #00ff004f; /* Change background color on hover */
+}
+</style> 
+
+<script>
+    let user = document.getElementById("user")
+    let pass = document.getElementById("password")
+    let btn = document.getElementById("submit")
+    if(user.value.length == 0){
+            btn.disabled = true
+            btn.style.cursor = "not-allowed";
+    }else{
+            btn.disabled = false
+            btn.style.cursor = "pointer"
+        }
+    if(pass.value.length == 0){
+            btn.disabled = true
+            btn.style.cursor = "not-allowed";
+        }else{
+            btn.disabled = false
+            btn.style.cursor = "pointer"
+        }
+    user.addEventListener("input", () => {
+        if(user.value.length == 0){
+            btn.disabled = true
+            btn.style.cursor = "not-allowed";
+        }else{
+            btn.disabled = false
+            btn.style.cursor = "pointer"
+        }
+    })
+    pass.addEventListener("input", () => {
+        if(pass.value.length == 0){
+            btn.disabled = true
+            btn.style.cursor = "not-allowed";
+        }else{
+            btn.disabled = false
+            btn.style.cursor = "pointer"
+        }
+    })
+</script>

@@ -1,0 +1,82 @@
+{{ template  "base.html" }}
+
+<body>
+    {{ range .user }}
+    <div id="container">
+    <div id="span">User: <span>{{ .Username }}</span></div>
+    <div id="span">Bio: <span>{{ .Bio }}</span></div>
+    <div id="span">Profession: <span>{{ .Profession }}</span></div>
+    {{ end }}
+    {{ if eq .mine "true" }}
+    <button hx-get="/logoutSendHome" id="log" hx-confirm="Are you sure you want to log out of this account?">Logout</button>
+    <button hx-get="/updateProfile" hx-target="body" id="up">Update Profile</button>
+</div>
+    {{ end }}
+
+    {{ if eq .mine "true" }}
+    <div id="flex">
+        <div>
+            <h2 style="text-align: center;">Blogs</h2>
+        </div>
+        <div id="sticky">
+        <a href="/createBlogPage">
+            <button>Write Blog</button>
+            </a>
+        </div>
+    {{ end }}
+</body>
+
+<style>
+     #flex{
+        display: flex;
+        justify-content: space-around;
+    }
+    a{
+        left: 5;
+        bottom: 5;
+    }
+    a>button{
+        background-color: rgb(73, 153, 223);
+        border: none;
+        border-radius: 5px;
+    }
+    a>button:hover{
+        cursor: pointer;
+    }
+    #up{
+        background-color: #00ff008d;  
+        border: none;
+        border-radius: 5px;
+    }
+    #up:hover{
+        background-color: #00ff004f;
+        cursor: pointer;
+    }
+    #container{
+        border: 2px solid white;
+        border-radius: 10px;
+    }
+    div > span{
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+    div#span{
+        margin: 1rem;
+    }
+    button{
+        margin: 1rem;
+        min-width: 15rem;
+        height: 2rem;
+        font-size: 1.1rem;
+        font-weight: bolder;
+    }
+    #log{
+        background-color: rgba(255, 0, 0, 0.753);
+        border: none;
+        border-radius: 5px;
+    }
+    #log:hover{
+        background-color: rgba(255, 0, 0, 0.593);
+        cursor: pointer;
+    }
+</style>

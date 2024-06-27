@@ -1,0 +1,135 @@
+{{ template "base.html" }}
+
+<body>
+    <div id="intro">Create a new User</div>
+    <!-- <form action="/createUser" method="post">
+        UserName
+        <input type="text" name="username" placeholder="UserName" required maxlength="30">
+        <br>
+        passowrd
+        <input type="password" name="password" placeholder="Passowrd" required id="password" >
+        <div onclick="toggle()" id="passBtn">show</div>
+        <br>
+        Bio
+        <textarea name="bio" placeholder="About you" required maxlength="125" id="textarea"></textarea>
+        <span id="count">125 characters remaining</span>
+        <br>
+        Profession
+        <input type="text" name="profession" placeholder="Your Job" required>
+        <br>
+        what primary color would you like
+        <input type="color" name="color" placeholder="color" required>
+        <input type="submit" value="Sign Up">
+    </form> -->
+    <div class="form-container">
+        <form action="/createUser" method="post">
+            <div>
+                <div class="label">UserName <span style="color: red;">*</span></div>
+                <input type="text" name="username" placeholder="UserName" required maxlength="30">
+                <div class="label">Password<span style="color: red;">*</span></div>
+                <input type="password" name="password" placeholder="Password" required id="password">
+                <div onclick="toggle()" id="passBtn">Show Password</div>
+                <div class="label">Bio<span style="color: red;">*</span></div>
+                <textarea name="bio" placeholder="About you" required maxlength="125" id="textarea" rows="4" cols="35"></textarea><br>
+                <span id="count">125 characters remaining</span>
+                <div class="label">Profession<span style="color: red;">*</span></div>
+                <input type="text" name="profession" placeholder="Your Job" required>
+                <div class="label">What primary color would you like<span style="color: red;">*</span></div>
+                <input type="color" name="color" placeholder="Color" required>
+                <input id="submit" type="submit" value="Sign Up" hx-post="/createUser">
+            </div>
+        </form>
+    </div>
+    </div>
+</body>
+
+
+<script>
+    let text = document.getElementById("textarea")
+    let count = document.getElementById("count")
+    let max = 125
+    text.addEventListener("input",()=>{
+        const remaining = max - text.value.length
+        count.textContent = `${remaining} characters remaining`
+    })
+</script>   
+<style>
+    #count{
+        display: block;
+        margin-bottom: 10px;
+    }   
+     #intro{
+        font-size: 3rem;
+        text-align: center;
+        margin: 1rem;
+    }
+    #passBtn{
+        margin-bottom: 5px;
+    }
+    form {
+            margin-top: 5rem;
+        }
+        
+        #submit {
+            font-weight: 600;
+            margin: 10px;
+        }
+        
+        #passBtn {
+            cursor: pointer;
+        }
+        
+        #intro {
+            font-size: 3rem;
+            text-align: center;
+            margin: 3rem;
+        }
+        
+        /* Basic styles */
+        .form-container {
+            width: 400px; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the form horizontally */
+        }
+        
+        /* Label styles */
+        .label {
+            font-size: 1.2em;
+            color: #fff; /* Change the label color */
+            margin-bottom: 5px;
+        }
+        
+        /* Input styles */
+        input[type="text"],
+        input[type="password"] {
+            width: 93%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc; /* Border color */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #f8f8f8; /* Background color */
+            color: #333; /* Text color */
+        }
+        
+        input[type="password"] {
+            margin-bottom: 5px;
+        }
+        input{
+            margin: 5px;
+        }
+        /* Submit button styles */
+        input[type="submit"] {
+            width: 93%;
+            padding: 10px;
+            border: none;
+            font-size: 1rem;
+            border-radius: 5px;
+            background-color: #00ff008d; /* Button background color */
+            color: #fff; /* Button text color */
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #00ff004f; /* Change background color on hover */
+        }
+</style>

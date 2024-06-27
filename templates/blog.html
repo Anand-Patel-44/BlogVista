@@ -1,0 +1,10 @@
+{{ template "base.html" }}
+
+<body>
+    {{ range .blog }}
+    <div>{{ .Title }}</div>
+    <div>{{ .Username }}</div>
+    <div>{{ .Blogtext }}</div>
+    <div>{{ .Stars }}</div>
+    {{ end }}
+</body>

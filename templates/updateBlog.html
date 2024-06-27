@@ -1,0 +1,99 @@
+{{ template "base.html" }}
+
+<body>
+    <!-- <form>
+        Title
+        <input type="text" placeholder="TiTle" id="title" name="title" value="{{ .title }}">
+        Blog
+        <input name="blogText" id="textarea" maxlength="500" value="{{ .text }}"> 
+        <span id="count">200 characters remaining</span>
+        <input type="submit" value="Edit Blog" id="submit" hx-confirm="Are you sure you want to Update this Blog?"
+        hx-post="updateBlog/{{ .id }}">   
+    </form> -->
+    <h2 style="text-align: center;margin: 3rem;">Editing the Blog</h2>
+    <form>
+        Title<span style="color: red;">*</span>
+        <input type="text" placeholder="Title" id="title" name="title" value="{{ .title }}">
+        Blog<span style="color: red;">*</span>
+        <textarea name="blogText" id="textarea" maxlength="500">{{ .text }}</textarea>
+        <span id="count">200 characters remaining</span>
+        <input type="submit" value="Edit Blog" id="submit" hx-confirm="Are you sure you want to Update this Blog?" hx-post="updateBlog/{{ .id }}">
+    </form>
+</body>
+
+<script>
+    let text = document.getElementById("textarea")
+    let count = document.getElementById("count")
+    let btn = document.getElementById("submit")
+    let title = document.getElementById("title")
+    let max = 500
+    text.addEventListener("input",()=>{
+        if(text.value.length == 0){
+            btn.disabled = true
+        }else{
+            btn.disabled = false
+        }
+        const remaining = max - text.value.length
+        count.textContent = `${remaining} characters remaining`
+    })
+    title.addEventListener("input", () => {
+        if(user.value.length == 0){
+            btn.disabled = true
+        }else{
+            btn.disabled = false
+        }
+    })
+</script>
+
+<style>
+      #count {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        #title,
+        #textarea {
+            width: 93%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        #submit {
+            width: 93%;
+            padding: 10px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: #00ff008d;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #submit:hover {
+            background-color: #00ff004f;
+        }
+        
+        #passBtn {
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+        
+        #intro {
+            font-size: 3rem;
+            text-align: center;
+            margin: 1rem;
+        }
+        
+        form {
+            margin-top: 5rem;
+            width: 400px;
+            margin: 0 auto;
+        }
+</style>

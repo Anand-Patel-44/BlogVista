@@ -1,0 +1,116 @@
+{{ template "base.html" }}
+
+<body>
+    <h2 style="text-align: center;">Craft yout own blog</h2>
+    <!-- <form action="/blog" method="post">
+        Title
+        <input type="text" name="title" placeholder="Title" required>
+        <br>
+        Blog Content
+        <textarea name="text" placeholder="text" required id="textarea" maxlength="500"></textarea>
+        <span id="count">200 characters remaining</span>
+        <input type="submit" value="Post Blog">
+    </form> -->
+    <div class="form-container">
+        <form >
+            <div class="label">Title <span style="color: red;">*</span></div>
+            <input type="text" name="title" placeholder="Title" required>
+            <br>
+            <div class="label">Blog Content<span style="color: red;">*</span></div>
+            <textarea name="text" placeholder="text" required id="textarea" maxlength="500" cols="34" rows="11"></textarea>
+            <span id="count">200 characters remaining</span>
+            <input type="submit" value="Post Blog" hx-post="/blog" >
+        </form>
+    </div>
+</body>
+
+<script>
+    let text = document.getElementById("textarea")
+    let count = document.getElementById("count")
+    let max = 500
+    text.addEventListener("input",()=>{
+        const remaining = max - text.value.length
+        count.textContent = `${remaining} characters remaining`
+    })
+</script>
+
+<style>
+    #count{
+        display: block;
+        margin-bottom: 10px;
+    }
+    #intro{
+        font-size: 3rem;
+        text-align: center;
+        margin: 1rem;
+    }
+    #passBtn{
+        margin-bottom: 5px;
+    }
+    form {
+        margin-top: 5rem;
+    }
+
+    #submit {
+        font-weight: 600;
+        margin: 10px;
+    }
+
+    #passBtn {
+        cursor: pointer;
+    }
+
+    #intro {
+        font-size: 3rem;
+        text-align: center;
+        margin: 3rem;
+    }
+
+    /* Basic styles */
+    .form-container {
+        width: 400px; /* Adjust the width as needed */
+        margin: 0 auto; /* Center the form horizontally */
+    }
+
+    /* Label styles */
+    .label {
+        font-size: 1.2em;
+        color: #fff; /* Change the label color */
+        margin-bottom: 5px;
+    }
+
+    /* Input styles */
+    input[type="text"],
+    input[type="password"] {
+        width: 93%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc; /* Border color */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #f8f8f8; /* Background color */
+        color: #333; /* Text color */
+    }
+
+    input[type="password"] {
+        margin-bottom: 5px;
+    }
+    input{
+        margin: 5px;
+    }
+    /* Submit button styles */
+    input[type="submit"] {
+        width: 93%;
+        padding: 10px;
+        border: none;
+        font-size: 1rem;
+        border-radius: 5px;
+        background-color: #00ff008d; /* Button background color */
+        color: #fff; /* Button text color */
+        cursor: pointer;
+        transition: background-color 0.3s; /* Smooth transition */
+    }
+
+    input[type="submit"]:hover {
+        background-color: #00ff004f; /* Change background color on hover */
+    }
+</style>

@@ -1,0 +1,49 @@
+{{ template "base.html" }}
+
+<body>
+</div>
+
+    {{ range .arr }}
+    <div id="con">
+    <div style="font-size: 1.4rem; font-weight: bold;" id="div">{{ .Title }}</div>
+    <!-- <div>{{ .Username }}</div> -->
+    <div style="font-size: 1.2rem;" id="div">{{ .Blogtext }}</div>
+    <button hx-delete="deleteBlog/{{ .Blogid }}" hx-confirm="Are you sure you want to delete this Blog?" id="del">delete</button>
+    <button hx-get="updateBlogPage/{{ .Blogid }}" hx-target="body" id="up">Update</button>
+</div>
+    {{ end }}
+</body>
+<style>
+    #div{
+        margin: 0.5rem;
+    }
+    #con{
+        border: 2px solid white;
+        margin-bottom: 1rem;
+    }
+    #up{
+        background-color: #00ff008d;  
+        border: none;
+        border-radius: 5px;
+    }
+    #up:hover{
+        background-color: #00ff004f;
+        cursor: pointer;
+    }
+    #del{
+        background-color: rgba(255, 0, 0, 0.753);
+        border: none;
+        border-radius: 5px;
+    }
+    #del:hover{
+        background-color: rgba(255, 0, 0, 0.593);
+        cursor: pointer;
+    }
+    @media screen and (max-width: 800px) {
+    #flex{
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center; 
+    } 
+    }
+</style>

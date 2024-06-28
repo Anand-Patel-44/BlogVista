@@ -8,12 +8,19 @@ import (
 	"encoding/hex"
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 )
+
+var dbUser string = os.Getenv("USER")
+var dbPassword string = os.Getenv("PASSWORD")
+var dbName string = os.Getenv("NAME")
+var dbString string = dbUser+":"+dbPassword+"@/"+dbName+"?parseTime=true"
+var secret string = os.Getenv("secret")
 
 func HomePage(c *gin.Context) {
 	c.HTML(200, "home.html", gin.H{})
@@ -28,7 +35,7 @@ func RedirectLoginPage(c *gin.Context) {
 }
 func Login(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -61,7 +68,7 @@ func RedirectCreateUser(c *gin.Context) {
 }
 func CreateUser(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -98,7 +105,7 @@ func sendToken(c *gin.Context, userName string) {
 	})
 
 	//hash to token with the secret
-	tokenString, err := token.SignedString([]byte("abc@123"))
+	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {
 		c.HTML(200, "error.html", gin.H{
 			"errCode": 502,
@@ -123,7 +130,7 @@ func Middleware(c *gin.Context) {
 		return
 	}
 	//parse and validate the cookie the reaturn value is the secret
-	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) { return []byte("abc@123"), nil })
+	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) { return []byte(secret), nil })
 	if err != nil {
 		c.HTML(200, "error.html", gin.H{
 			"errCode": 504,
@@ -148,7 +155,7 @@ func CreateBlogPage(c *gin.Context) {
 }
 func CreateBlog(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -185,7 +192,7 @@ func LogoutSendHome(c *gin.Context) {
 
 func UpdatedProfile(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql",dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -216,7 +223,7 @@ func UpdatedProfile(c *gin.Context) {
 
 func UpdateBlog(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -249,7 +256,7 @@ func UpdateBlog(c *gin.Context) {
 
 func UpdateBlogPage(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -280,7 +287,7 @@ func UpdateBlogPage(c *gin.Context) {
 
 func DeleteBlog(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql",dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -307,7 +314,7 @@ func DeleteBlog(c *gin.Context) {
 
 func UpdateProfile(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -331,7 +338,7 @@ func UpdateProfile(c *gin.Context) {
 
 func Blog(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -363,7 +370,7 @@ func Blog(c *gin.Context) {
 
 func MyProfile(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -400,7 +407,7 @@ func MyProfile(c *gin.Context) {
 
 func Profile(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -424,7 +431,7 @@ func Profile(c *gin.Context) {
 
 func GeneralBlogs(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql", "root:3435@/blogvista?parseTime=true")
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}

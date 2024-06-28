@@ -11,16 +11,17 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 )
 
-var dbUser string = os.Getenv("USER")
-var dbPassword string = os.Getenv("PASSWORD")
-var dbName string = os.Getenv("NAME")
-var dbString string = dbUser+":"+dbPassword+"@/"+dbName+"?parseTime=true"
-var secret string = os.Getenv("secret")
+	var dbUser string = os.Getenv("USER")
+	var dbPassword string = os.Getenv("PASSWORD")
+	var dbName string = os.Getenv("NAME")
+	var dbString string = dbUser+":"+dbPassword+"@/"+dbName+"?parseTime=true"
+	var secret string = os.Getenv("secret")
 
 func HomePage(c *gin.Context) {
 	c.HTML(200, "home.html", gin.H{})
@@ -192,7 +193,7 @@ func LogoutSendHome(c *gin.Context) {
 
 func UpdatedProfile(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql",dbString)
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
@@ -287,7 +288,7 @@ func UpdateBlogPage(c *gin.Context) {
 
 func DeleteBlog(c *gin.Context) {
 	ctx := context.Background()
-	db, err := sql.Open("mysql",dbString)
+	db, err := sql.Open("mysql", dbString)
 	if err != nil {
 		c.String(500, "db err")
 	}
